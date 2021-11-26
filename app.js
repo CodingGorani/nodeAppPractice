@@ -18,8 +18,8 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/public/main.html');
 });
 
-app.get('/main', (req, res) => {
-  res.sendFile(__dirname + '/public/main.html');
+app.get('/form', (req, res) => {
+  res.sendFile(__dirname + '/public/form.html');
 });
 
 app.post('/email_post', (req, res) => {
