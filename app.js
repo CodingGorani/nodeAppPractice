@@ -2,7 +2,6 @@ var express = require('express');
 var app = express();
 var cors = require('cors');
 var bodyParser = require('body-parser');
-const { response } = require('express');
 
 app.listen(3000, () => {
   console.log('start express server on port 3000');

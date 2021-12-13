@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Main</title>
+</head>
+<body>
+  <h1>Merry Christmas</h1>
+  <form>
+    <input class="searchInput" type="text">
+    <input class="searchAjax" type="submit" value="검색">
+  </form>
+  <div class="result"></div>
+  <script>
+    document.querySelector(".searchAjax").addEventListener('click', () => {
+      var inputData = document.querySelector(".searchInput").value;
+      sendAjax('http://127.0.0.1:3030/search', inputData);
+    })
+    
+    const sendAjax = (url, data) => {
+      var jsonData = {'query' : data};
+      jsonData = JSON.stringify(jsonData);
+
+      var xhr = new XMLHttpRequest();
+      xhr.open('POST', url);
+      xhr.setRequestHeader("Content-Type", "application/json");
+      xhr.onreadystatechange = () => {
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200) {
+            var result = JSON.parse(xhr.responseText);
+            document.querySelector('.result').innerHTML = result.query;
+          } 
+        }
+      }
+
+      xhr.send(jsonData);
+
+    }
+  </script>
+
+</body>
+</html>
