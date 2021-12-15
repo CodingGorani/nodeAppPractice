@@ -2,6 +2,17 @@ var express = require('express');
 var app = express();
 var cors = require('cors');
 var bodyParser = require('body-parser');
+var mysql = require('mysql');
+
+require('dotenv').config();
+
+var connection = mysql.createConnection({
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT,
+  user: process.env.DB_USER,
+  password: process.env.DB_PW,
+  database: process.env.DB_NAME,
+});
 
 app.listen(3000, () => {
   console.log('start express server on port 3000');
