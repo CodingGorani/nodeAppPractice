@@ -5,6 +5,7 @@ var path = require('path');
 
 var main = require('./main');
 var email = require('./email');
+var join = require('./join/index.js');
 
 router.get('/', (req, res) => {
   console.log('this is a test');
@@ -13,5 +14,6 @@ router.get('/', (req, res) => {
 
 router.use('/main', main);
 router.use('/email', email);
+router.use('/join', join);
 
 module.exports = router;
