@@ -1,10 +1,11 @@
 var express = require('express');
-var app = express();
-var router = express.Router();
-var path = require('path');
-var mysql = require('mysql');
-const passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
+app = express();
+router = express.Router();
+path = require('path');
+mysql = require('mysql');
+passport = require('passport');
+LocalStrategy = require('passport-local').Strategy;
+const { v4: uuidv4 } = require('uuid');
 
 require('dotenv').config();
 
@@ -33,7 +34,13 @@ passport.serializeUser(function (user, done) {
 
 passport.deserializeUser(function (id, done) {
   console.log('passport session getData : ', id);
-  done(null, id);
+  connection.query(
+    'select * from user where user_id = ?',
+    [id],
+    function (err, results) {
+      done(err, results);
+    }
+  );
 });
 
 passport.use(
@@ -52,13 +59,14 @@ passport.use(
         function (err, results, fields) {
           if (err) return done(err);
           if (results.length !== 0) {
-            return done(null, false, { message: 'existing user' });
+            return done(null, false, {
+              message: 'You have already joined our website',
+            });
           } else {
-            const sql = { email, pw };
-            connection.query('insert into user set ?', sql, (err, results) => {
+            const sql = { email: email, pw: pw, user_id: uuidv4() };
+            connection.query('insert into user set ?', sql, (err) => {
               if (err) return done(err);
-              console.log(results.insertId);
-              return done(null, { email: email, id: results.insertId });
+              return done(null, { email: email, id: sql.user_id });
             });
           }
         }
