@@ -10,7 +10,7 @@ var flash = require('connect-flash');
 var router = require('./router/index');
 
 app.listen(3000, () => {
-  console.log('start express server on http://localhost::3000');
+  console.log('start express server on http://localhost:3000');
 });
 
 app.use(express.static('public'));
