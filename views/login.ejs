@@ -5,19 +5,23 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Email Form</title>
+  <link rel="stylesheet" href="/css/login.css" type="text/css">
 </head>
 <body>
-  <h1>Login To Our Website</h1>
-  <form action="/login" method="post">
-    email : <input type="email" name="email"><br/>
-    password : <input type="password" name="pw"><br/>
-  </form>
-  <button class="ajaxsend">login</button>
-  <button onclick="location.href='join'">회원가입</button>
-  <div class="result"></div>
-  <div><%=message%></div>
+  <h1>Login</h1>
+  <div class="lgcontainer">
+    <form class="lgform" action="/login" method="post">
+      <input type="email" name="email">
+      <input type="password" name="pw">
+    </form>
+    <button class="lgbtn ajaxsend">Login</button>
+    <button class="lgbtn join" onclick="location.href='join'">Join</button>
+  </div>
+
+
   <script>
-    document.querySelector(".ajaxsend").addEventListener('click', () => {
+    document.querySelector(".ajaxsend").addEventListener('click', (e) => {
+      e.preventDefault()
       var email = document.getElementsByName('email')[0].value;
       var pw = document.getElementsByName('pw')[0].value;
       sendAjax('http://localhost:3000/login', {email, pw})
@@ -34,9 +38,10 @@
       xhr.onreadystatechange = () => {
         if (xhr.readyState === 4) {
           if (xhr.status === 200) {
-            var result = JSON.parse(xhr.responseText);
-            var resultDiv = document.querySelector(".result");
-            resultDiv.innerHTML = result.email;
+            // var result = JSON.parse(xhr.responseText);
+            // var resultDiv = document.querySelector(".result");
+            // resultDiv.innerHTML = result.email;
+            window.location.href = '/main';
           }
         }
       };

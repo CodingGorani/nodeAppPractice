@@ -1,19 +1,19 @@
 var express = require('express');
-var app = express();
-var cors = require('cors');
-var bodyParser = require('body-parser');
-var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
-var session = require('express-session');
-var flash = require('connect-flash');
-
-var router = require('./router/index');
+app = express();
+cors = require('cors');
+bodyParser = require('body-parser');
+passport = require('passport');
+LocalStrategy = require('passport-local').Strategy;
+session = require('express-session');
+flash = require('connect-flash');
+router = require('./router/index');
+path = require('path');
 
 app.listen(3000, () => {
   console.log('start express server on http://localhost:3000');
 });
 
-app.use(express.static('public'));
+app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());

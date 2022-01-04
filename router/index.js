@@ -7,15 +7,17 @@ var main = require('./main');
 var email = require('./email');
 var join = require('./join/index.js');
 var login = require('./login/index.js');
+var logout = require('./logout/index.js');
 
 router.get('/', (req, res) => {
   console.log('this is a test');
-  res.sendFile(path.join(__dirname, '../public/main.html'));
+  res.render('main.ejs');
 });
 
 router.use('/main', main);
 router.use('/email', email);
 router.use('/join', join);
 router.use('/login', login);
+router.use('/logout', logout);
 
 module.exports = router;

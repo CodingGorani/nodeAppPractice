@@ -20,10 +20,14 @@ var connection = mysql.createConnection({
 connection.connect();
 
 router.get('/', (req, res) => {
-  var msg;
+  var msg = '';
   var errmsg = req.flash('error');
   if (errmsg) msg = errmsg;
-  console.log('This is a login page');
+  if (req.user) {
+    if (req.user[0].user_id) {
+      res.redirect('/main');
+    }
+  }
   res.render('login.ejs', { message: msg });
 });
 
@@ -38,7 +42,7 @@ passport.deserializeUser(function (id, done) {
     'select * from user where user_id = ?',
     [id],
     function (err, results) {
-      done(err, results);
+      done(err, id);
     }
   );
 });
@@ -66,13 +70,12 @@ passport.use(
             connection.query(
               'select * from user where pw = ?',
               [pw],
-              function (err, results) {
+              function (err, rows) {
                 if (err) return done(err);
-                if (results.length === 0) {
+                if (rows.length === 0) {
                   return done(null, false, { message: 'Wrong Pw' });
                 } else {
-                  console.log('working really really well');
-                  return done(null, { email: email, id: results[0].user_id });
+                  return done(null, { email: email, id: rows[0].user_id });
                 }
               }
             );
@@ -84,7 +87,6 @@ passport.use(
 );
 
 router.post('/', function (req, res, next) {
-  console.log(req.body);
   passport.authenticate('local-login', function (err, user, info) {
     if (err) {
       return res.status(500).json(err);
@@ -96,7 +98,7 @@ router.post('/', function (req, res, next) {
       if (err) {
         return next(err);
       }
-      return res.json(user);
+      return res.status(200).json(user);
     });
   })(req, res, next);
 });

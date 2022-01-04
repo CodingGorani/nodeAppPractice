@@ -1,0 +1,55 @@
+* {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+body {
+  height: 100vh;
+  width: 100vw;
+}
+
+h1 {
+  text-align: center;
+}
+
+.lgcontainer {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
+
+.lgform {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 80px;
+  width: 240px;
+}
+
+.lgform > input {
+  height: 38%;
+  outline: none;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+.lgbtn {
+  cursor: pointer;
+  border: 0;
+  border-radius: 5px;
+  outline: 0;
+  margin-left: 8px;
+  width: 70px;
+  color: white;
+  background-color: #95e4a3;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+.lgbtn.join {
+  width: 80px;
+  background-color: #91b892;
+}
+
+.lgbtn:hover {
+  transform: scale(101%);
+}
