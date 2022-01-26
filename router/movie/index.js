@@ -35,4 +35,21 @@ router.get('/', (req, res) => {
   });
 });
 
+router.post('/', (req, res) => {
+  var { title, type, grade, actor } = req.body;
+  connection.query(
+    'SELECT * FROM movie where title = ?',
+    title,
+    (err, results) => {
+      if (err) throw err;
+      if (results.length !== 0) return res.json({ result: 2 });
+
+      connection.query('INSERT INTO movie SET ?', req.body, (err, results) => {
+        if (err) throw err;
+        return res.json({ result: 1 });
+      });
+    }
+  );
+});
+
 module.exports = router;

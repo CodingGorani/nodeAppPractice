@@ -21,7 +21,7 @@
       <li class="post">
         <form action="" method="post">
           <div> 제목 : <input type="text" name="title" placeholder="Terminator"> </div>
-          <div> 장르 : <input type="text" name="genre" placeholder="action"> </div>
+          <div> 장르 : <input type="text" name="type" placeholder="action"> </div>
           <div> 평점 : <input type="text" name="grade" placeholder="9.43"> </div>
           <div> 주연 : <input type="text" name="actor" placeholder="Tom cruise"> </div>
         </form>
@@ -44,7 +44,7 @@
       <li class="update_id">
         <form action="" method="post">
           <div> 제목 : <input type="text" name="title" placeholder="Terminator"> </div>
-          <div> 장르 : <input type="text" name="genre" placeholder="action"> </div>
+          <div> 장르 : <input type="text" name="type" placeholder="action"> </div>
           <div> 평점 : <input type="text" name="grade" placeholder="9.43"> </div>
           <div> 주연 : <input type="text" name="actor" placeholder="Tom cruise"> </div>
         </form>
@@ -94,8 +94,13 @@
             return pre;
           }, {});
           fn = (result) => {
-            if (result.result === 1) showResult.innerHTML = "새로운 영화 데이터가 정상적으로 추가되었습니다";
-            else showResult.innerHTML = "list not found"
+            if (result.result === 1) {
+              showResult.innerHTML = "새로운 영화 데이터가 정상적으로 추가되었습니다";
+            } else if (result.result === 2){
+              showResult.innerHTML = "이미 등록된 영화입니다.";
+            } else { 
+              showResult.innerHTML = "list not found";
+            }
           }
           break;
         case 'get_id': 
