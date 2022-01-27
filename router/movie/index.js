@@ -52,4 +52,50 @@ router.post('/', (req, res) => {
   );
 });
 
+router.get('/:title', (req, res) => {
+  var title = req.params.title;
+  console.log('title =>', title);
+
+  var responseData = {};
+
+  connection.query(
+    'select * from movie where title = ?',
+    title,
+    (err, results) => {
+      if (err) throw err;
+      if (results[0]) {
+        console.log(results);
+        responseData.result = 1;
+        responseData.data = results;
+      } else {
+        responseData.result = 0;
+      }
+      res.json(responseData);
+    }
+  );
+});
+
+router.delete('/:title', (req, res) => {
+  var title = req.params.title;
+  console.log('DELETE MOVIE title =>', title);
+
+  var responseData = {};
+
+  connection.query(
+    'DELETE FROM movie WHERE title = ?',
+    title,
+    (err, results) => {
+      if (err) throw err;
+      if (results.affectedRows === 1) {
+        console.log(results);
+        responseData.result = 1;
+        responseData.data = title;
+      } else {
+        responseData.result = 0;
+      }
+      res.json(responseData);
+    }
+  );
+});
+
 module.exports = router;

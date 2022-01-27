@@ -5,6 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <link rel="stylesheet" href="/css/movie.css" type="text/css">
 </head>
 <body>
   <header>
@@ -13,7 +14,7 @@
   </header>
   <h1>Movie List API Test</h1>
   <section class="showWrap">
-    <ul>
+    <ul class="showContainer">
       <li class="get_all">
         <button>모든영화보기</button>
         <section class="showResult"></section>
@@ -104,7 +105,7 @@
           }
           break;
         case 'get_id': 
-          url = '/movie/' + li.getElementByTagName("input")[0].value;;
+          url = '/movie/' + li.getElementsByTagName("input")[0].value;
           method = 'GET';
           fn = (result) => {
             if (result.result === 1) {
@@ -115,7 +116,7 @@
           }
           break;
         case 'delete_id': 
-          url = '/movie/' + li.getElementByTagName("input")[0].value;;
+          url = '/movie/' + li.getElementsByTagName("input")[0].value;;
           method = 'DELETE';
           fn = (result) => {
             if (result.result === 1) {
